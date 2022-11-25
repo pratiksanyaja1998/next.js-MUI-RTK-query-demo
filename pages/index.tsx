@@ -1,20 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
-import {
-  Link,
-  Container,
-  Typography,
-  Divider,
-  Stack,
-  Button,
-  Checkbox,
-  Box,
-} from "@mui/material";
+import { Container, Stack } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { IconButton, InputAdornment, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import Link from "next/link";
+import { store } from "../store";
+import { setUser } from "../store/reducer";
+import { useSelector } from 'react-redux'
+import Router from "next/router";
 
 const StyledContent = styled("div")(({ theme }) => ({
   maxWidth: 480,
@@ -27,7 +21,24 @@ const StyledContent = styled("div")(({ theme }) => ({
 }));
 
 export default function Home() {
-  const handleClick = () => {};
+  const auth = useSelector((state: any) => state.auth)
+  const [userCredential, setUserCredential] = useState({
+    email: "",
+    password: ""
+  });
+
+  const handleClick = () => {
+    console.log("userCredential->", userCredential);
+    store.dispatch(setUser(userCredential));
+  };
+  useEffect(() => {
+    console.log("auth", auth);
+    if (auth) {
+      Router.replace("/dashboard")
+    }
+  }, [auth]);
+
+
   return (
     <>
       <Head>
@@ -36,9 +47,8 @@ export default function Home() {
       <StyledContent>
         <Container maxWidth="sm">
           <Stack spacing={3}>
-            <TextField name="email" label="Email address" />
-
-            <TextField name="password" label="Password" type={"password"} />
+            <TextField name="email" label="Email address" onChange={(e) => setUserCredential({ ...userCredential, email: e.target.value })} />
+            <TextField name="password" label="Password" type={"password"} onChange={(e) => setUserCredential({ ...userCredential, password: e.target.value })} />
             <LoadingButton
               fullWidth
               size="large"
@@ -49,6 +59,9 @@ export default function Home() {
               Login
             </LoadingButton>
           </Stack>
+          <div style={{ textAlign: "center" }}>
+            <Link href="/signup">Sign Up</Link>
+          </div>
         </Container>
       </StyledContent>
     </>
