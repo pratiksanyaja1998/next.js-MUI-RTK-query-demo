@@ -32,3 +32,9 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+Create 3 pages Register, Login, and Dashboard using Next JS, MUI(use Grid), React hook form, and RTK Query package.
+Register: The user should be able to register to this API(https://jsonplaceholder.typicode.com/ -> Use the user's API). Once the user is registered redirect them to the Dashboard.
+Login: Just design the UI no need to implement the API. This should be a separate page.
+Dashboard: If the user is not registered then redirect to the register page else show the list of users(https://jsonplaceholder.typicode.com/ -> Use the users API)
